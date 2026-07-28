@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tyzam Kids Coding Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --wine:       #6B1A2A;
+      --wine-dark:  #4A0F1C;
+      --wine-light: #8C2438;
+      --gold:       #E8C96A;
+      --gold-soft:  #F5E4A8;
+      --cream:      #FDF8EF;
+      --text:       #1A1A1A;
+      --muted:      #555;
+      --white:      #ffffff;
+      --radius:     12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); font-size: 16px; line-height: 1.6; }
+
+    /* NAV */
+    nav { background: var(--wine-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.25); }
+    .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 64px; position: relative; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { height: 44px; width: auto; }
+    .nav-logo span { font-family: 'Syne', sans-serif; font-size: 1.35rem; font-weight: 800; color: var(--gold); letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 6px; list-style: none; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: background 0.2s; }
+    .nav-links a:hover { background: var(--wine-light); color: var(--white); }
+    .nav-links a.cta-nav { background: var(--gold); color: var(--wine-dark); font-weight: 600; }
+    .nav-links a.cta-nav:hover { background: var(--gold-soft); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+    .mobile-menu { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--wine-dark); padding: 16px 24px 24px; flex-direction: column; gap: 4px; z-index: 200; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 1rem; font-weight: 500; padding: 10px 12px; border-radius: 6px; }
+    .mobile-menu a:hover { background: var(--wine-light); }
+    .mobile-menu a.cta-nav { background: var(--gold); color: var(--wine-dark); font-weight: 600; margin-top: 8px; text-align: center; }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, var(--wine-dark) 0%, var(--wine) 60%, var(--wine-light) 100%); color: var(--white); padding: 80px 24px; text-align: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 40%, rgba(232,201,106,0.12) 0%, transparent 65%); pointer-events: none; }
+    .hero-inner { max-width: 760px; margin: 0 auto; position: relative; }
+    .hero-badge { display: inline-block; background: rgba(232,201,106,0.2); border: 1px solid rgba(232,201,106,0.4); color: var(--gold); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 16px; border-radius: 100px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.9rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+    .hero h1 em { color: var(--gold); font-style: normal; }
+    .hero p { font-size: clamp(1rem, 2.2vw, 1.15rem); color: rgba(255,255,255,0.85); max-width: 620px; margin: 0 auto 36px; }
+    .hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--gold); color: var(--wine-dark); font-weight: 700; font-size: 0.95rem; padding: 14px 30px; border-radius: 8px; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+    .btn-primary:hover { background: var(--gold-soft); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--white); font-weight: 600; font-size: 0.95rem; padding: 13px 28px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.4); text-decoration: none; transition: border-color 0.2s, background 0.2s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+    /* SECTIONS */
+    section { padding: 80px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--wine); margin-bottom: 8px; }
+    .section-title { font-family: 'Syne', sans-serif; font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; color: var(--wine-dark); margin-bottom: 14px; }
+    .section-sub { color: var(--muted); max-width: 560px; margin-bottom: 48px; font-size: 1rem; }
+    .divider { width: 52px; height: 4px; background: var(--gold); border-radius: 2px; margin-bottom: 40px; }
+
+    /* ABOUT */
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .about-img img { width: 100%; border-radius: var(--radius); object-fit: cover; aspect-ratio: 4/3; }
+    .about-text p { color: var(--muted); margin-bottom: 16px; }
+    .about-stats { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
+    .stat strong { display: block; font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--wine); }
+    .stat span { font-size: 0.85rem; color: var(--muted); }
+
+    /* SERVICES */
+    #services { background: var(--cream); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 24px; }
+    .service-card { background: var(--white); border-radius: var(--radius); padding: 28px 24px; border-top: 4px solid var(--wine); box-shadow: 0 2px 12px rgba(107,26,42,0.07); transition: transform 0.2s, box-shadow 0.2s; }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(107,26,42,0.13); }
+    .service-icon { font-size: 2rem; margin-bottom: 14px; }
+    .service-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--wine-dark); margin-bottom: 8px; }
+    .service-card p { font-size: 0.9rem; color: var(--muted); }
+    .service-card.highlight { border-top-color: var(--gold); background: var(--wine-dark); }
+    .service-card.highlight h3 { color: var(--gold); }
+    .service-card.highlight p { color: rgba(255,255,255,0.75); }
+
+    /* COURSES */
+    #courses { background: var(--white); }
+    .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 28px; }
+    .course-card { border-radius: var(--radius); overflow: hidden; border: 1px solid rgba(107,26,42,0.12); transition: box-shadow 0.2s, transform 0.2s; }
+    .course-card:hover { box-shadow: 0 8px 28px rgba(107,26,42,0.14); transform: translateY(-3px); }
+    .course-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+    .course-body { padding: 20px; }
+    .course-tag { display: inline-block; background: rgba(107,26,42,0.1); color: var(--wine); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; margin-bottom: 10px; }
+    .course-body h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--wine-dark); margin-bottom: 8px; }
+    .course-body p { font-size: 0.88rem; color: var(--muted); }
+
+    /* GALLERY */
+    #gallery { background: var(--wine-dark); }
+    #gallery .section-label { color: var(--gold); }
+    #gallery .section-title { color: var(--white); }
+    #gallery .section-sub { color: rgba(255,255,255,0.65); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .gallery-item { border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3; position: relative; cursor: pointer; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s; }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(74,15,28,0.55) 0%, transparent 55%); opacity: 0; transition: opacity 0.3s; }
+    .gallery-item:hover::after { opacity: 1; }
+
+    /* LIGHTBOX */
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(10,0,5,0.93); z-index: 999; align-items: center; justify-content: center; padding: 16px; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 8px; object-fit: contain; }
+    .lightbox-close { position: fixed; top: 20px; right: 28px; font-size: 2.5rem; color: var(--white); cursor: pointer; z-index: 1000; line-height: 1; }
+
+    /* BOOK */
+    #book { background: var(--cream); }
+    .book-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 56px; align-items: start; }
+    .book-intro .section-title { margin-bottom: 10px; }
+    .book-intro p { color: var(--muted); margin-bottom: 16px; font-size: 1rem; }
+    .book-intro .perks { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .book-intro .perks li { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 0.93rem; }
+    .book-intro .perks li::before { content: '✓'; background: var(--wine); color: var(--white); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; }
+    .form-card { background: var(--white); border-radius: 16px; padding: 36px; box-shadow: 0 4px 24px rgba(107,26,42,0.1); }
+    .form-card h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--wine-dark); margin-bottom: 24px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-group label { font-size: 0.78rem; font-weight: 700; color: var(--wine-dark); letter-spacing: 0.06em; text-transform: uppercase; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea { padding: 11px 14px; border-radius: 8px; border: 1.5px solid rgba(107,26,42,0.2); font-size: 0.93rem; font-family: 'Inter', sans-serif; color: var(--text); background: var(--cream); outline: none; transition: border-color 0.2s, box-shadow 0.2s; width: 100%; }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--wine); box-shadow: 0 0 0 3px rgba(107,26,42,0.08); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B1A2A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-color: var(--cream); padding-right: 36px; }
+    .submit-btn { width: 100%; background: var(--wine); color: var(--white); font-weight: 700; font-size: 1rem; padding: 14px; border-radius: 8px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; margin-top: 4px; font-family: 'Inter', sans-serif; }
+    .submit-btn:hover { background: var(--wine-light); transform: translateY(-1px); }
+    .success-msg { display: none; background: rgba(107,26,42,0.07); border: 1.5px solid var(--wine); color: var(--wine-dark); border-radius: 8px; padding: 14px 16px; font-size: 0.92rem; font-weight: 500; margin-top: 16px; text-align: center; }
+    .success-msg.show { display: block; }
+
+    /* CONTACT */
+    #contact { background: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 24px; margin-top: 8px; }
+    .contact-card { background: var(--cream); border-radius: var(--radius); padding: 28px 24px; border-top: 4px solid var(--wine); transition: transform 0.2s, box-shadow 0.2s; }
+    .contact-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(107,26,42,0.1); }
+    .contact-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .contact-card h3 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--wine-dark); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .contact-card a { display: block; color: var(--wine); text-decoration: none; font-size: 0.93rem; font-weight: 500; margin-bottom: 6px; transition: color 0.2s; }
+    .contact-card a:hover { color: var(--wine-light); text-decoration: underline; }
+    .contact-card p { color: var(--muted); font-size: 0.85rem; margin-top: 8px; }
+
+    /* FOOTER */
+    footer { background: var(--wine-dark); color: rgba(255,255,255,0.55); text-align: center; padding: 28px 24px; font-size: 0.85rem; }
+    footer strong { color: var(--gold); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .book-layout { grid-template-columns: 1fr; gap: 36px; }
+    }
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      .nav-links { display: none !important; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      section { padding: 56px 20px; }
+      .hero { padding: 60px 20px; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+    }
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .courses-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .about-stats { gap: 20px; }
+      .form-card { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">
+      <img src="https://i.ibb.co/PZMq75Md/image0-2-removebg-preview.png" alt="Tyzam logo" />
+      <span>Tyzam</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#book" class="cta-nav">Book a Class</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#services" onclick="closeMenu()">Services</a>
+    <a href="#courses" onclick="closeMenu()">Courses</a>
+    <a href="#gallery" onclick="closeMenu()">Gallery</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+    <a href="#book" class="cta-nav" onclick="closeMenu()">Book a Class</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <span class="hero-badge">Kids Coding Academy</span>
+    <h1>Prepare your child for the future<br/>with the skills <em>schools rarely teach.</em></h1>
+    <p>Here at Tyzam, we turn curious kids into creators, builders, and problem solvers through coding, AI, cybersecurity, and hands-on technology projects.</p>
+    <div class="hero-ctas">
+      <a href="#book" class="btn-primary">Book a Class</a>
+      <a href="#courses" class="btn-outline">Explore Courses</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="https://i.ibb.co/TD6Y3XVV/IMG-3796.jpg" alt="Kids learning to code at Tyzam" />
+      </div>
+      <div class="about-text">
+        <p class="section-label">Who We Are</p>
+        <h2 class="section-title">Building Tomorrow's Tech Leaders Today</h2>
+        <div class="divider"></div>
+        <p>Tyzam is a hands-on kids technology academy focused on giving children real-world digital skills. We go beyond screens — every class is project-based, creative, and built around curiosity.</p>
+        <p>Our instructors are passionate technologists who know how to make complex ideas simple, exciting, and relevant for young learners aged 6 to 17.</p>
+        <div class="about-stats">
+          <div class="stat"><strong>500+</strong><span>Kids Trained</span></div>
+          <div class="stat"><strong>12+</strong><span>Courses</span></div>
+          <div class="stat"><strong>95%</strong><span>Parent Satisfaction</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Our Services</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Everything your child needs to grow into a confident, capable digital creator.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">💻</div>
+        <h3>Coding Classes</h3>
+        <p>Weekly beginner to advanced coding sessions covering Scratch, Python, web development, and more.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <h3>AI and Machine Learning</h3>
+        <p>Age-appropriate introduction to artificial intelligence concepts, tools, and real-world applications.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔐</div>
+        <h3>Cybersecurity</h3>
+        <p>Fun, practical lessons on staying safe online and understanding how digital security works.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛠️</div>
+        <h3>Tech Projects</h3>
+        <p>Hands-on builds from apps and games to robotics and creative digital projects kids are proud of.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏕️</div>
+        <h3>Holiday Camps</h3>
+        <p>Intensive multi-day holiday programmes packed with coding, building, and tech challenges for all skill levels.</p>
+      </div>
+      <div class="service-card highlight">
+        <div class="service-icon">🎓</div>
+        <h3>Private Tutoring</h3>
+        <p>One-on-one sessions tailored to your child's pace, goals, and learning style.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="section-inner">
+    <p class="section-label">Curriculum</p>
+    <h2 class="section-title">Featured Courses</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Structured learning paths designed for every age group and skill level.</p>
+    <div class="courses-grid">
+      <div class="course-card">
+        <img class="course-img" src="https://i.ibb.co/MDQWXk0C/image2.jpg" alt="Kids coding on Scratch" />
+        <div class="course-body">
+          <span class="course-tag">Ages 6 to 10</span>
+          <h3>Scratch for Beginners</h3>
+          <p>Learn the basics of programming through interactive animations, stories, and games using Scratch.</p>
+        </div>
+      </div>
+      <div class="course-card">
+        <img class="course-img" src="https://i.ibb.co/MDwR62H3/image3.jpg" alt="Students at laptops" />
+        <div class="course-body">
+          <span class="course-tag">Ages 10 to 14</span>
+          <h3>Python Fundamentals</h3>
+          <p>A practical introduction to Python with real projects kids can show off to family and friends.</p>
+        </div>
+      </div>
+      <div class="course-card">
+        <img class="course-img" src="https://i.ibb.co/WWdjzFtL/image0-3.jpg" alt="Tech projects session" />
+        <div class="course-body">
+          <span class="course-tag">Ages 12 to 17</span>
+          <h3>Cybersecurity Basics</h3>
+          <p>Understand digital security, ethical hacking concepts, and how to protect yourself online.</p>
+        </div>
+      </div>
+      <div class="course-card">
+        <img class="course-img" src="https://i.ibb.co/TD6Y3XVV/IMG-3796.jpg" alt="Group coding session" />
+        <div class="course-body">
+          <span class="course-tag">Ages 10 to 16</span>
+          <h3>AI Explorers</h3>
+          <p>Dive into artificial intelligence, learn how smart systems work, and build your first simple AI project.</p>
+        </div>
+      </div>
+      <div class="course-card">
+        <img class="course-img" src="https://i.ibb.co/MDQWXk0C/image2.jpg" alt="Coding class" />
+        <div class="course-body">
+          <span class="course-tag">Ages 13 to 17</span>
+          <h3>Web Development</h3>
+          <p>Build real websites from scratch using HTML, CSS, and JavaScript. Launch your first live project online.</p>
+        </div>
+      </div>
+      <div class="course-card">
+        <img class="course-img" src="https://i.ibb.co/MDwR62H3/image3.jpg" alt="Creative tech session" />
+        <div class="course-body">
+          <span class="course-tag">Ages 8 to 14</span>
+          <h3>Game Design and Development</h3>
+          <p>Design and code your own games while learning the logic and creativity behind game development.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-inner">
+    <p class="section-label">In the Classroom</p>
+    <h2 class="section-title">Gallery</h2>
+    <div class="divider" style="background:var(--gold);"></div>
+    <p class="section-sub">A glimpse into the energy, creativity, and fun that happens at every Tyzam session.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="openLightbox('https://i.ibb.co/MDQWXk0C/image2.jpg')">
+        <img src="https://i.ibb.co/MDQWXk0C/image2.jpg" alt="Kids coding on Scratch" />
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://i.ibb.co/MDwR62H3/image3.jpg')">
+        <img src="https://i.ibb.co/MDwR62H3/image3.jpg" alt="Students at laptops" />
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://i.ibb.co/WWdjzFtL/image0-3.jpg')">
+        <img src="https://i.ibb.co/WWdjzFtL/image0-3.jpg" alt="Young coder focused" />
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://i.ibb.co/TD6Y3XVV/IMG-3796.jpg')">
+        <img src="https://i.ibb.co/TD6Y3XVV/IMG-3796.jpg" alt="Group coding session" />
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://i.ibb.co/WWdjzFtL/image0-3.jpg')">
+        <img src="https://i.ibb.co/WWdjzFtL/image0-3.jpg" alt="Holiday camp activity" />
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://i.ibb.co/TD6Y3XVV/IMG-3796.jpg')">
+        <img src="https://i.ibb.co/TD6Y3XVV/IMG-3796.jpg" alt="Tech project building" />
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://i.ibb.co/MDQWXk0C/image2.jpg')">
+        <img src="https://i.ibb.co/MDQWXk0C/image2.jpg" alt="Focused young learner" />
+      </div>
+      <div class="gallery-item" onclick="openLightbox('https://i.ibb.co/MDwR62H3/image3.jpg')">
+        <img src="https://i.ibb.co/MDwR62H3/image3.jpg" alt="Kids enjoying coding" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">&#215;</span>
+  <img id="lightbox-img" src="" alt="Gallery photo" onclick="event.stopPropagation()" />
+</div>
+
+<!-- BOOK -->
+<section id="book">
+  <div class="section-inner">
+    <div class="book-layout">
+      <div class="book-intro">
+        <p class="section-label">Enrol Today</p>
+        <h2 class="section-title">Book a Class for Your Child</h2>
+        <div class="divider"></div>
+        <p>Fill in the form and we will get back to you within 24 hours to confirm your booking and discuss the best fit for your child.</p>
+        <p>No prior experience needed — just curiosity and a love of learning!</p>
+        <ul class="perks">
+          <li>Online and in-person sessions available</li>
+          <li>Flexible scheduling around school hours</li>
+          <li>Ages 6 to 17 welcome</li>
+          <li>First session consultation is free</li>
+        </ul>
+      </div>
+      <div class="form-card">
+        <h3>Booking Request</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Parent / Guardian Name</label>
+            <input type="text" id="parentName" placeholder="e.g. Jane Mwangi" />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phone" placeholder="e.g. 0712 345 678" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="email" placeholder="e.g. jane@gmail.com" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Child's Name</label>
+            <input type="text" id="childName" placeholder="e.g. Brian Mwangi" />
+          </div>
+          <div class="form-group">
+            <label>Child's Age</label>
+            <select id="childAge">
+              <option value="" disabled selected>Select age</option>
+              <option>6 years old</option>
+              <option>7 years old</option>
+              <option>8 years old</option>
+              <option>9 years old</option>
+              <option>10 years old</option>
+              <option>11 years old</option>
+              <option>12 years old</option>
+              <option>13 years old</option>
+              <option>14 years old</option>
+              <option>15 years old</option>
+              <option>16 years old</option>
+              <option>17 years old</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Service Interested In</label>
+          <select id="service">
+            <option value="" disabled selected>Select a service</option>
+            <option>Coding Classes (Scratch / Python)</option>
+            <option>AI and Machine Learning</option>
+            <option>Cybersecurity</option>
+            <option>Web Development</option>
+            <option>Game Design and Development</option>
+            <option>App Development</option>
+            <option>Holiday Camps</option>
+            <option>Private Tutoring</option>
+            <option>Not sure yet — I need guidance</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Preferred Session Type</label>
+          <select id="sessionType">
+            <option value="" disabled selected>Select session type</option>
+            <option>Online (one-on-one)</option>
+            <option>Physical (home visit)</option>
+            <option>Physical (school programme)</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Any Additional Notes (optional)</label>
+          <textarea id="notes" placeholder="e.g. preferred days, prior experience, specific goals..."></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitForm()">Send Booking Request</button>
+        <div class="success-msg" id="successMsg">
+          Thank you! We have received your booking request and will be in touch within 24 hours.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <p class="section-label">Get in Touch</p>
+    <h2 class="section-title">Contact Us</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Have a question? Reach out to us directly and we will be happy to help.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h3>Call or WhatsApp</h3>
+        <a href="tel:+254702051671">0702 051 671</a>
+        <a href="tel:+254722386476">0722 386 476</a>
+        <p>Available Monday to Saturday, 8am to 6pm</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">✉️</div>
+        <h3>Email Us</h3>
+        <a href="mailto:tyzaminnovation@gmail.com">tyzaminnovation@gmail.com</a>
+        <a href="mailto:aranjatamila13@gmail.com">aranjatamila13@gmail.com</a>
+        <p>We reply within 24 hours on business days</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <h3>Where We Serve</h3>
+        <p style="color:var(--wine); font-weight:600; margin-top:0;">Nairobi, Kenya</p>
+        <p>We offer online sessions nationwide and physical visits within Nairobi.</p>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">🕐</div>
+        <h3>Session Hours</h3>
+        <p style="color:var(--wine); font-weight:600; margin-top:0;">Mon to Sat: 8am to 6pm</p>
+        <p>Flexible scheduling available around school and holiday timetables.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 <strong>Tyzam Kids Coding Academy</strong>. All rights reserved. Nurturing tomorrow's innovators, today.</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+
+  function submitForm() {
+    var parent = document.getElementById('parentName').value.trim();
+    var phone  = document.getElementById('phone').value.trim();
+    var email  = document.getElementById('email').value.trim();
+    var child  = document.getElementById('childName').value.trim();
+    var age    = document.getElementById('childAge').value;
+    var svc    = document.getElementById('service').value;
+    var sess   = document.getElementById('sessionType').value;
+    if (!parent || !phone || !email || !child || !age || !svc || !sess) {
+      alert('Please fill in all required fields before submitting.');
+      return;
+    }
+    document.getElementById('successMsg').classList.add('show');
+    document.querySelector('.submit-btn').disabled = true;
+    document.querySelector('.submit-btn').textContent = 'Request Sent!';
+    document.querySelector('.submit-btn').style.background = '#888';
+  }
+</script>
+
+</body>
+</html>
