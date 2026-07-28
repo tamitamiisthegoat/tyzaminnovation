@@ -170,7 +170,6 @@
       .about-img img { aspect-ratio: 16/9; }
     }
     @media (max-width: 480px) {
-      .services-grid { grid-template-columns: 1fr; }
       .courses-grid { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
       .hero-ctas { flex-direction: column; align-items: center; }
@@ -241,7 +240,7 @@
         <p class="section-label">Who We Are</p>
         <h2 class="section-title">Building Tomorrow's Tech Leaders Today</h2>
         <div class="divider"></div>
-        <p>Tyzam is a practical kids technology academy focused on giving children real world digital skills. We go beyond screens every class is project-based, creative, and built around curiosity.</p>
+        <p>Tyzam is a practical kids technology academy focused on giving children real world digital skills. We go beyond screens â€” every class is project-based, creative, and built around curiosity.</p>
         <p>Our instructors are passionate technologists who know how to make complex ideas simple, exciting, and relevant for young learners aged 6 to 17.</p>
         <div class="about-stats">
           <div class="stat"><strong>500+</strong><span>Kids Trained</span></div>
@@ -262,32 +261,32 @@
     <p class="section-sub">Everything your child needs to grow into a confident, capable digital creator.</p>
     <div class="services-grid">
       <div class="service-card">
-        <div class="service-icon">ðŸ’»</div>
+        <div class="service-icon">&#128187;</div>
         <h3>Coding Classes</h3>
         <p>Weekly beginner to advanced coding sessions covering Scratch, Python, web development, and more.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">ðŸ¤–</div>
+        <div class="service-icon">&#129302;</div>
         <h3>AI and Machine Learning</h3>
         <p>Age-appropriate introduction to artificial intelligence concepts, tools, and real world applications.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">ðŸ”</div>
+        <div class="service-icon">&#128272;</div>
         <h3>Cybersecurity</h3>
         <p>Fun, practical lessons on staying safe online and understanding how digital security works.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">ðŸ› ï¸</div>
+        <div class="service-icon">&#128295;</div>
         <h3>Tech Projects</h3>
-        <p> Build robotics and creative digital projects kids are proud of.</p>
+        <p>Build robotics and creative digital projects kids are proud of.</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">ðŸ•ï¸</div>
+        <div class="service-icon">&#127957;</div>
         <h3>Holiday Camps</h3>
         <p>Intensive holiday programmes packed with coding, building, and tech challenges for all skill levels.</p>
       </div>
       <div class="service-card highlight">
-        <div class="service-icon">ðŸŽ“</div>
+        <div class="service-icon">&#127891;</div>
         <h3>Private Tutoring</h3>
         <p>One-on-one sessions tailored to your child's pace, goals, and learning style.</p>
       </div>
@@ -466,7 +465,7 @@
             <option>App Development</option>
             <option>Holiday Camps</option>
             <option>Private Tutoring</option>
-            <option>Not sure yet I need guidance</option>
+            <option>Not sure yet â€” I need guidance</option>
           </select>
         </div>
         <div class="form-group">
@@ -485,7 +484,7 @@
         </div>
         <button class="submit-btn" id="submitBtn" onclick="submitForm()">Send Booking Request</button>
         <div class="success-msg" id="successMsg">
-          ðŸŽ‰ Thank you! We have received your booking request and will be in touch within 24 hours.
+          &#127881; Thank you! We have received your booking request and will be in touch within 24 hours.
         </div>
         <div class="success-msg" id="errorMsg" style="border-color:#c0392b; color:#c0392b; background:rgba(192,57,43,0.07);">
           Something went wrong. Please try again or contact us directly on 0702 051 671.
@@ -504,27 +503,27 @@
     <p class="section-sub">Have a question? Reach out to us directly and we will be happy to help.</p>
     <div class="contact-grid">
       <div class="contact-card">
-        <div class="contact-icon">ðŸ“ž</div>
+        <div class="contact-icon">&#128222;</div>
         <h3>Call or WhatsApp</h3>
         <a href="tel:+254702051671">0702 051 671</a>
         <a href="tel:+254722386476">0722 386 476</a>
         <p>Available Monday to Saturday, 8am to 6pm</p>
       </div>
       <div class="contact-card">
-        <div class="contact-icon">âœ‰ï¸</div>
+        <div class="contact-icon">&#9993;</div>
         <h3>Email Us</h3>
         <a href="mailto:tyzaminnovation@gmail.com">tyzaminnovation@gmail.com</a>
-        <a href="mailto:karanjatamila13@gmail.com">aranjatamila13@gmail.com</a>
+        <a href="mailto:karanjatamila13@gmail.com">karanjatamila13@gmail.com</a>
         <p>We reply within 24 hours on business days</p>
       </div>
       <div class="contact-card">
-        <div class="contact-icon">ðŸ“</div>
+        <div class="contact-icon">&#128205;</div>
         <h3>Where We Serve</h3>
         <p style="color:var(--wine); font-weight:600; margin-top:0;">Nairobi, Kenya</p>
         <p>We offer online sessions nationwide and physical visits within Nairobi.</p>
       </div>
       <div class="contact-card">
-        <div class="contact-icon">ðŸ•</div>
+        <div class="contact-icon">&#128336;</div>
         <h3>Session Hours</h3>
         <p style="color:var(--wine); font-weight:600; margin-top:0;">Mon to Sat: 8am to 6pm</p>
         <p>Flexible scheduling available around school and holiday timetables.</p>
@@ -577,16 +576,16 @@
     btn.style.background = '#888';
 
     var data = {
-      'Parent Name':    parent,
-      'Phone Number':   phone,
-      'Email':          email,
-      'Child Name':     child,
-      'Child Age':      age,
-      'Service':        svc,
-      'Session Type':   sess,
-      'Notes':          notes || 'None',
-      '_subject':       'New Booking Request from ' + parent + ' for ' + child,
-      'email':          email
+      'Parent Name':  parent,
+      'Phone Number': phone,
+      'Email':        email,
+      'Child Name':   child,
+      'Child Age':    age,
+      'Service':      svc,
+      'Session Type': sess,
+      'Notes':        notes || 'None',
+      '_subject':     'New Booking Request from ' + parent + ' for ' + child,
+      '_replyto':     email
     };
 
     try {
@@ -601,13 +600,13 @@
         btn.textContent = 'Request Sent!';
       } else {
         document.getElementById('errorMsg').classList.add('show');
-        btn.textContent = 'Failed â€” Try Again';
+        btn.textContent = 'Failed - Try Again';
         btn.disabled = false;
         btn.style.background = 'var(--wine)';
       }
     } catch (err) {
       document.getElementById('errorMsg').classList.add('show');
-      btn.textContent = 'Failed â€” Try Again';
+      btn.textContent = 'Failed - Try Again';
       btn.disabled = false;
       btn.style.background = 'var(--wine)';
     }
